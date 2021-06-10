@@ -5,16 +5,30 @@ var resetBtn = document.querySelector('#resetBtn');
 var statusText = document.querySelector('.status');
 var timeText = document.querySelector('.time');
 var heading = document.querySelector('#heading');
+var easyBtn = document.querySelector('#easy');
+var hardBtn = document.querySelector('#hard');
+
+var resetAudio = new Audio('Reset Button audio final.mp3');
+var switchAudio = new Audio('Tile Switch audio.mp3');
+var victoryAudio = new Audio('Victory audio.mp3');
 
 var colors = ["red", "purple", "green", "yellow", "orange", "pink"];
 var blank = -1;
 var moves = 0;
 var t0 = 0;
 var t1 = 0;
+var difficulty = 0;
 
 resetBtn.addEventListener('click', resetAction);
 
 function resetAction(e) {
+    resetAudio.play();
+    if(difficulty == 0) {
+        easyBtn.style.backgroundColor = "lightcoral";
+    }
+    else {
+        hardBtn.style.backgroundColor = "lightcoral";
+    }
     moves = 0;
     e.target.textContent = "RESET";
     heading.textContent = "COLOR TILES";
@@ -57,6 +71,7 @@ for(var a = 0; a<25; a++) {
     function switchTiles(e) {
         if((blank+1)%5 != 0 && blank != -1) {
             if(e.target == mainGridTile[blank+1]) {
+                switchAudio.play();
                 var x = e.target.style.backgroundColor;
                 if((blank+1>=6 && blank+1<=8) || (blank+1>=11 && blank+1<=13) || (blank+1>=16 && blank+1<=18)) {
                     mainGridTile[blank+1].style.backgroundColor = "black";
@@ -72,6 +87,7 @@ for(var a = 0; a<25; a++) {
 
         if((blank-1)%5 != 4) {
             if(e.target == mainGridTile[blank-1]) {
+                switchAudio.play();
                 var x = e.target.style.backgroundColor;
                 if((blank-1>=6 && blank-1<=8) || (blank-1>=11 && blank-1<=13) || (blank-1>=16 && blank-1<=18)) {
                     mainGridTile[blank-1].style.backgroundColor = "black";
@@ -87,6 +103,7 @@ for(var a = 0; a<25; a++) {
 
         if(blank+5<=24 && blank != -1) {
             if(e.target == mainGridTile[blank+5]) {
+                switchAudio.play();
                 var x = e.target.style.backgroundColor;
                 if((blank+5>=6 && blank+5<=8) || (blank+5>=11 && blank+5<=13) || (blank+5>=16 && blank+5<=18)) {
                     mainGridTile[blank+5].style.backgroundColor = "black";
@@ -102,6 +119,7 @@ for(var a = 0; a<25; a++) {
 
         if(blank-5>=0) {
             if(e.target == mainGridTile[blank-5]) {
+                switchAudio.play();
                 var x = e.target.style.backgroundColor;
                 if((blank-5>=6 && blank-5<=8) || (blank-5>=11 && blank-5<=13) || (blank-5>=16 && blank-5<=18)) {
                     mainGridTile[blank-5].style.backgroundColor = "black";
@@ -124,6 +142,9 @@ for(var a = 0; a<25; a++) {
         }
         if(flag) {
             var t1 = performance.now();
+            if(blank != -1) {
+                victoryAudio.play();
+            }
             blank = -1;
             heading.textContent = "YOU WIN !";
             statusText.textContent = "Moves Taken = " +moves;

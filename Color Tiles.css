@@ -59,6 +59,26 @@ h1 {
     background: lightcoral;
 }
 
+#easy {
+    border: none;
+    background: none;
+    text-transform: uppercase;
+    height: 100%;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: floralwhite;
+}
+
+#hard {
+    border: none;
+    background: none;
+    text-transform: uppercase;
+    height: 100%;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: floralwhite;
+}
+
 .targetGrid {
   display: grid;
   width: 150px;
