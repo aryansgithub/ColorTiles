@@ -18,7 +18,7 @@ function resetAction(e) {
     moves = 0;
     e.target.textContent = "RESET";
     heading.textContent = "COLOR TILES";
-    statusText.textContent = "Try to match the 3x3 grid.";
+    statusText.textContent = "Try to match the 3x3 grid";
     timeText.textContent = "";
 
     for(var j = 0; j<9; j++) {
