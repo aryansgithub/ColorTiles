@@ -159,8 +159,13 @@ for(var a = 0; a<25; a++) {
 
     function easySwitchTiles(e) {
 
+        // Checking whether the puzzle has already been solved.
+        if(blank == -1) {
+            return;
+        }
+
         // Checking whether the clicked tile is to the right of blank tile
-        if((blank+1)%5 != 0 && blank != -1) {  // Checking whether blank tile isn't a part of the rightmost column. We are also checking for -1 to make sure the game hasn't ended.
+        if((blank+1)%5 != 0) {  // Checking whether blank tile isn't a part of the rightmost column. We are also checking for -1 to make sure the game hasn't ended.
             if(e.target == mainGridTile[blank+1]) {
                 switchAudio.play();
                 var x = e.target.style.backgroundColor;
@@ -194,7 +199,7 @@ for(var a = 0; a<25; a++) {
         }
 
         // Checking whether the clicked tile is below the blank tile
-        if(blank+5<=24 && blank != -1) {  // Checking whether blank tile is not in the bottom row. Checking for -1 to make sure game isn't over.
+        if(blank+5<=24) {  // Checking whether blank tile is not in the bottom row. Checking for -1 to make sure game isn't over.
             if(e.target == mainGridTile[blank+5]) {
                 switchAudio.play();
                 var x = e.target.style.backgroundColor;
@@ -238,37 +243,134 @@ for(var a = 0; a<25; a++) {
 
         // This if block contains actions to be performed if the target grid is matched.
         if(flag) {
-            if(blank != -1) {  // This is to make sure that it doesn't run again if you click a tile after the game is over.
-                var t1 = performance.now();
-                victoryAudio.play();
-                blank = -1;
-                heading.textContent = "YOU WIN !";
-                statusText.textContent = "Moves Taken = " +moves;
-                resetBtn.textContent = "START NEW GAME";
-                const s = (Math.round((t1-t0)/1000));   // declaring this as a constant so that value of time taken doesn't change when you click on tiles without starting new game.
-                timeText.textContent = "Time Taken = " +s+" seconds";
+           win();
+        }
+    }
+
+easyBtn.addEventListener('click', easyBtnAction);
+
+function easyBtnAction(e) {
+    if(difficulty == 0) {
+        return;
+    }
+    resetAudio.play();
+    difficulty = 0;
+    resetAction();
+}
+
+hardBtn.addEventListener('click', hardBtnAction);
+
+function hardBtnAction(e) {
+    if(difficulty == 1) {
+        return;
+    }
+    resetAudio.play();
+    difficulty = 1;
+    resetAction();
+}
+
+// Adding a click event to all Main grid tiles using a loop. (For hard mode)
+for(var a = 0; a<36; a++) {
+    hardMainGridTile[a].addEventListener('click', hardSwitchTiles);
+}
+    
+function hardSwitchTiles(e) {
+
+    // Checking whether the puzzle has already been solved.
+    if(blank == -1) {
+        return;
+    }
+
+    // Checking whether the clicked tile is to the right of blank tile
+    if((blank+1)%6 != 0) {  // Checking whether blank tile isn't a part of the rightmost column.
+        if(e.target == hardMainGridTile[blank+1]) {
+            switchAudio.play();
+            var x = e.target.style.backgroundColor;
+            if((blank+1>=7 && blank+1<=10) || (blank+1>=13 && blank+1<=16) || (blank+1>=19 && blank+1<=22) || (blank+1>=25 && blank+1<=28)) {
+                hardMainGridTile[blank+1].style.backgroundColor = "black";
             }
+            else {
+                hardMainGridTile[blank+1].style.backgroundColor = "cornflowerblue";
+            }
+            hardMainGridTile[blank].style.backgroundColor = x;
+            blank++;
+            moves++;
         }
     }
 
-    easyBtn.addEventListener('click', easyBtnAction);
-
-    function easyBtnAction(e) {
-        if(difficulty == 0) {
-            return;
+    // Checking whether the clicked tile is to the left of blank tile
+    if((blank-1)%6 != 5) {  // Checking whether blank tile isn't a part of leftmost column. 
+        if(e.target == hardMainGridTile[blank-1]) {
+            switchAudio.play();
+            var x = e.target.style.backgroundColor;
+            if((blank-1>=7 && blank-1<=10) || (blank-1>=13 && blank-1<=16) || (blank-1>=19 && blank-1<=22) || (blank-1>=25 && blank-1<=28)) {
+                hardMainGridTile[blank-1].style.backgroundColor = "black";
+            }
+            else {
+                hardMainGridTile[blank-1].style.backgroundColor = "cornflowerblue";
+            }
+            hardMainGridTile[blank].style.backgroundColor = x;
+            blank--;
+            moves++;
         }
-        resetAudio.play();
-        difficulty = 0;
-        resetAction();
     }
 
-    hardBtn.addEventListener('click', hardBtnAction);
-
-    function hardBtnAction(e) {
-        if(difficulty == 1) {
-            return;
+    // Checking whether the clicked tile is below the blank tile
+    if(blank+6<=35) {  // Checking whether blank tile is not in the bottom row. 
+        if(e.target == hardMainGridTile[blank+6]) {
+            switchAudio.play();
+            var x = e.target.style.backgroundColor;
+            if((blank+6>=7 && blank+6<=10) || (blank+6>=13 && blank+6<=16) || (blank+6>=19 && blank+6<=22) || (blank+6>=25 && blank+6<=28)) {
+                hardMainGridTile[blank+6].style.backgroundColor = "black";
+            }
+            else {
+                hardMainGridTile[blank+6].style.backgroundColor = "cornflowerblue";
+            }
+            hardMainGridTile[blank].style.backgroundColor = x;
+            blank += 6;
+            moves++;
         }
-        resetAudio.play();
-        difficulty = 1;
-        resetAction();
     }
+
+    // Checking whether clicked tile is above the blank tile. 
+    if(blank-6>=0) {  // Checking whether blank tile is not in the top row. 
+        if(e.target == hardMainGridTile[blank-6]) {
+            switchAudio.play();
+            var x = e.target.style.backgroundColor;
+            if((blank-6>=7 && blank-6<=10) || (blank-6>=13 && blank-6<=16) || (blank-6>=19 && blank-6<=22) || (blank-6>=25 && blank-6<=28)) {
+                hardMainGridTile[blank-6].style.backgroundColor = "black";
+            }
+            else {
+                hardMainGridTile[blank-6].style.backgroundColor = "cornflowerblue";
+            }
+            hardMainGridTile[blank].style.backgroundColor = x;
+            blank -= 6;
+            moves++;
+        }
+    }
+
+    // In this block we will check whether the target grid has been matched.
+    var flag = true;
+    for(var j = 0; j<16; j++) {
+        if(hardTargetGridTile[j].style.backgroundColor != hardInnerGridTile[j].style.backgroundColor) {
+            flag = false;
+            break;
+        }
+    }
+
+    if(flag && blank != -1) {
+        win();
+    }
+    
+}
+
+function win() {
+    var t1 = performance.now();
+    victoryAudio.play();
+    blank = -1;
+    heading.textContent = "YOU WIN !";
+    statusText.textContent = "Moves Taken = " +moves;
+    resetBtn.textContent = "START NEW GAME";
+    const s = (Math.round((t1-t0)/1000));   // declaring this as a constant so that value of time taken doesn't change when you click on tiles without starting new game.
+    timeText.textContent = "Time Taken = " +s+" seconds";
+}
