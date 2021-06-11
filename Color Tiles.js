@@ -43,8 +43,15 @@ function resetAction() {
     heading.textContent = "COLOR TILES";
     timeText.textContent = "";
 
-    // This if block contains actions of reset button on easy mode
-    if(difficulty == 0) { 
+    gridDisplay();
+    generateRandomColors();
+    addBlankTile();
+    
+    t0 = performance.now();  // Storing the current time in t0 to start the timer.
+}
+
+function gridDisplay() {
+    if(difficulty == 0) {
         easyBtn.style.backgroundColor = "lightcoral";
         hardBtn.style.backgroundColor = "black";
         statusText.textContent = "Try to match the 3x3 grid.";
@@ -56,7 +63,25 @@ function resetAction() {
         //making the easy mode grid appear.
         mainGrid.style.display = "grid";
         targetGrid.style.display = "grid";
+    }
 
+    else {
+        hardBtn.style.backgroundColor = "lightcoral";
+        easyBtn.style.backgroundColor = "black";
+        statusText.textContent = "Try to match the 4x4 grid.";
+
+        //making the easy mode grid disappear.
+        mainGrid.style.display = "none";
+        targetGrid.style.display = "none";
+
+        //making the hard mode grid appear.
+        hardMainGrid.style.display = "grid";
+        hardTargetGrid.style.display = "grid";
+    }
+}
+
+function generateRandomColors() {
+    if(difficulty == 0) {
         // Making the inner grid separately visible
         for(var j = 0; j<9; j++) {
             innerGridTile[j].style.borderColor = "black";
@@ -77,32 +102,9 @@ function resetAction() {
             var u = 24 - ((2*j) + t);
             mainGridTile[u].style.backgroundColor = colors[i];
         }
-
-        // Adding the blank tile at a random position
-        var i = Math.floor(Math.random() * 25);
-        if((i>=6 && i<=8) || (i>=11 && i<=13) || (i>=16 && i<=18)) {
-            mainGridTile[i].style.backgroundColor = "black";  // If blank tile is part of inner grid, make it black.
-        }
-        else {
-            mainGridTile[i].style.backgroundColor = "cornflowerblue";  // If blank tile is not a part of inner grid, make it corn flower blue.
-        }
-        blank = i;   // Storing position of the blank tile
     }
 
-    // This else block contains actions of reset button on hard mode
     else {
-        hardBtn.style.backgroundColor = "lightcoral";
-        easyBtn.style.backgroundColor = "black";
-        statusText.textContent = "Try to match the 4x4 grid.";
-
-        //making the easy mode grid disappear.
-        mainGrid.style.display = "none";
-        targetGrid.style.display = "none";
-
-        //making the hard mode grid appear.
-        hardMainGrid.style.display = "grid";
-        hardTargetGrid.style.display = "grid";
-
         // Making the inner grid separately visible
         for(var j = 0; j<16; j++) {
             hardInnerGridTile[j].style.borderColor = "black";
@@ -123,8 +125,22 @@ function resetAction() {
             var u = 36 - ((2*j) + t);
             hardMainGridTile[u].style.backgroundColor = colors[i];
         }
+    }
+}
 
-        // Adding the blank tile at a random position
+function addBlankTile() {
+    if(difficulty == 0) {
+        var i = Math.floor(Math.random() * 25);
+        if((i>=6 && i<=8) || (i>=11 && i<=13) || (i>=16 && i<=18)) {
+            mainGridTile[i].style.backgroundColor = "black";  // If blank tile is part of inner grid, make it black.
+        }
+        else {
+            mainGridTile[i].style.backgroundColor = "cornflowerblue";  // If blank tile is not a part of inner grid, make it corn flower blue.
+        }
+        blank = i;   // Storing position of the blank tile
+    }
+
+    else {
         var i = Math.floor(Math.random() * 36);
         if((i>=7 && i<=10) || (i>=13 && i<=16) || (i>=19 && i<=22) || (i>=25 && i<=28)) {
             hardMainGridTile[i].style.backgroundColor = "black";  // If blank tile is part of inner grid, make it black.
@@ -133,11 +149,7 @@ function resetAction() {
             hardMainGridTile[i].style.backgroundColor = "cornflowerblue";  // If blank tile is not a part of inner grid, make it corn flower blue.
         }
         blank = i;   // Storing position of the blank tile
-
     }
-
-    t0 = performance.now();  // Storing the current time in t0 to start the timer.
-    
 }
 
 // Adding a click event to all Main grid tiles using a loop. (For easy mode)
