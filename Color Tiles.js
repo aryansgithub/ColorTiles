@@ -46,7 +46,7 @@ function resetAction() {
     gridDisplay();
     generateRandomColors();
     addBlankTile();
-    
+
     t0 = performance.now();  // Storing the current time in t0 to start the timer.
 }
 
@@ -122,7 +122,7 @@ function generateRandomColors() {
             hardTargetGridTile[j].style.backgroundColor = colors[i];
             // Overwriting the main grid with these colours in random mutually exclusive positions, so that the game is solvable.
             var t = Math.floor(Math.random() * 2);
-            var u = 36 - ((2*j) + t);
+            var u = 35 - ((2*j) + t);
             hardMainGridTile[u].style.backgroundColor = colors[i];
         }
     }
