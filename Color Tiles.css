@@ -25,8 +25,8 @@ h1 {
 
 .status{
     color:floralwhite;
-    width: 30%;
-    padding-left: 150px;
+    width: 20%;
+    position: relative; left: 80px;
     display: inline-block;
     font-weight: 600;
 }
@@ -34,13 +34,13 @@ h1 {
 .time {
     color:floralwhite;
     width: 30%;
+    position: relative; left: 100px;
     display: inline-block;
     font-weight: 600;
 }
 
 #resetBtn {
-    padding-left: 50px;
-    padding-right: 50px;
+    position: relative; left: -120px;
     border: none;
     background: none;
     text-transform: uppercase;
@@ -62,6 +62,7 @@ h1 {
 #easy {
     border: none;
     background: none;
+    position: relative; left: -80px;
     text-transform: uppercase;
     height: 100%;
     font-weight: 700;
@@ -72,6 +73,7 @@ h1 {
 #hard {
     border: none;
     background: none;
+    position: relative; left: -80px;
     text-transform: uppercase;
     height: 100%;
     font-weight: 700;
@@ -103,6 +105,37 @@ h1 {
 }
 
 .mainGridTile {
+    background-color: cornflowerblue;
+    border-style: solid;
+    border-width: 3px;
+    border-color: cornflowerblue;
+}
+
+.hardTargetGrid {
+    display: none;
+    width: 150px;
+    margin: auto;
+    grid-gap: 5px;
+    padding-top: 5px;
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .hardMainGrid {
+    display: none;
+    position:relative; left: 12px;
+    width: 370px;
+    height: 370px;
+    margin: auto;
+    padding-top: 15px;
+    grid-template-columns: repeat(6, 1fr);
+  }
+
+  .hardTargetGridTile {
+    background-color: cornflowerblue;
+    padding: 20px;
+}
+
+.hardMainGridTile {
     background-color: cornflowerblue;
     border-style: solid;
     border-width: 3px;
