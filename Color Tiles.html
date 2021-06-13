@@ -15,9 +15,21 @@
             <button id="resetBtn">Start Game</button>
             <button id="easy">Easy</button>
             <button id="hard">Hard</button>
+            <button id="multiplayerBtn">Multiplayer</button>
             <span class="status">Welcome to Color Tiles</span>
             <span class="time"></span>
+            <button id="highScoreBtn">Check Highscores</button>
         </div>
+
+        <div class="highScoreInput">
+           <form class="form-inline mb-3" id="inputForm">
+               <input type="text" id="name" class="form-control mr-2">
+               <input type="submit" class="btn btn-dark" value="Submit">
+           </form>
+        </div>
+
+        <div class="highScoresDisplay"></div>
+        <button id="clearHighScore">Clear All High Scores</button>
 
         <div class="targetGrid">
             <div class="targetGridTile"></div>

@@ -34,13 +34,13 @@ h1 {
 .time {
     color:floralwhite;
     width: 30%;
-    position: relative; left: 100px;
+    position: relative; left: 10px;
     display: inline-block;
     font-weight: 600;
 }
 
 #resetBtn {
-    position: relative; left: -120px;
+    position: relative; left: 0px;
     border: none;
     background: none;
     text-transform: uppercase;
@@ -62,7 +62,7 @@ h1 {
 #easy {
     border: none;
     background: none;
-    position: relative; left: -80px;
+    position: relative; left: 30px;
     text-transform: uppercase;
     height: 100%;
     font-weight: 700;
@@ -73,12 +73,38 @@ h1 {
 #hard {
     border: none;
     background: none;
-    position: relative; left: -80px;
+    position: relative; left: 30px;
     text-transform: uppercase;
     height: 100%;
     font-weight: 700;
     letter-spacing: 1px;
     color: floralwhite;
+}
+
+#multiplayerBtn {
+    position: relative; left: 70px;
+    border: none;
+    background: none;
+    text-transform: uppercase;
+    height: 100%;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: floralwhite;
+}
+
+#highScoreBtn {
+    position: relative; left: -20px;
+    border: none;
+    background: none;
+    text-transform: uppercase;
+    height: 100%;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: floralwhite;
+}
+
+#clearHighScore {
+    display: none;
 }
 
 .targetGrid {
@@ -141,3 +167,14 @@ h1 {
     border-width: 3px;
     border-color: cornflowerblue;
 }
+
+.highScoreInput {
+    display: none;
+}
+
+.highScoresDisplay {
+    display:none;
+}
+
+
+

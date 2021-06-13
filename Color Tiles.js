@@ -15,6 +15,13 @@ var timeText = document.querySelector('.time');
 var heading = document.querySelector('#heading');
 var easyBtn = document.querySelector('#easy');
 var hardBtn = document.querySelector('#hard');
+var highScoreInput = document.querySelector('.highScoreInput');
+var highScoresDisplay = document.querySelector('.highScoresDisplay');
+var multiplayerBtn = document.querySelector('#multiplayerBtn');
+var highScoreBtn = document.querySelector('#highScoreBtn');
+var clearHighScore = document.querySelector('#clearHighScore');
+var form = document.querySelector('#inputForm');
+var nameInput = document.querySelector('#name');
 
 
 // Creating variables for audio files
@@ -38,6 +45,9 @@ resetBtn.addEventListener('click', resetAction);
 function resetAction() {
     // These are the basic things that are common to both easy and hard mode.
     resetAudio.play();
+    highScoresDisplay.style.display = "none";
+    highScoreInput.style.display = "none";
+    clearHighScore.style.display = "none";
     moves = 0;
     resetBtn.textContent = "RESET";
     heading.textContent = "COLOR TILES";
@@ -244,6 +254,7 @@ for(var a = 0; a<25; a++) {
         // This if block contains actions to be performed if the target grid is matched.
         if(flag) {
            win();
+           newHighScore();
         }
     }
 
@@ -358,8 +369,9 @@ function hardSwitchTiles(e) {
         }
     }
 
-    if(flag && blank != -1) {
+    if(flag) {
         win();
+        newHighScore();
     }
     
 }
@@ -374,3 +386,72 @@ function win() {
     const s = (Math.round((t1-t0)/1000));   // declaring this as a constant so that value of time taken doesn't change when you click on tiles without starting new game.
     timeText.textContent = "Time Taken = " +s+" seconds";
 }
+
+function inputName() {
+    if(difficulty == 0) {
+        mainGrid.style.display = "none";
+        targetGrid.style.display = "none";
+    }
+    else {
+        hardMainGrid.style.display = "none";
+        hardTargetGrid.style.display = "none";
+    }
+
+    highScoreInput.style.display = "block";
+}
+
+form.addEventListener('submit', submitName);
+
+    function submitName(e) {
+        e.preventDefault();
+        localStorage.setItem("moves", moves);
+        var str = nameInput.textContent;
+        localStorage.setItem("name", str);
+        viewHighScore();
+    }
+
+function newHighScore() {
+    if(localStorage.key(0) == null) {
+        localStorage.setItem("moves", moves);
+        inputName();
+    }
+    else {
+        var m = localStorage.getItem("moves");
+        if(moves < m || m == null) {
+            localStorage.setItem("moves", moves);
+            inputName();
+        }
+    }
+}
+
+highScoreBtn.addEventListener('click', viewHighScore);
+
+function viewHighScore() {
+    if(difficulty == 0) {
+        mainGrid.style.display = "none";
+        targetGrid.style.display = "none";
+    }
+    else {
+        hardMainGrid.style.display = "none";
+        hardTargetGrid.style.display = "none";
+    }
+
+    highScoreInput.style.display = "none";
+    highScoresDisplay.style.display = "block";
+    clearHighScore.style.display = "block";
+    if(localStorage.key(0) == null) {
+        highScoresDisplay.textContent = "No High Score yet.";
+    }
+    else {
+        var m = localStorage.getItem("moves");
+        var nm = localStorage.getItem("name");
+        highScoresDisplay.textContent = "High Score = " +m+ " moves by : " +nm;
+    }
+}
+
+clearHighScore.addEventListener('click', deleteHighScores);
+
+    function deleteHighScores() {
+        localStorage.clear();
+        highScoresDisplay.textContent = "No High Score yet.";
+    }
